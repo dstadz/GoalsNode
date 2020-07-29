@@ -13,9 +13,9 @@ const sessions = require('express-session')
 //   .catch(err => console.log(err))
 //   .finally(() => client.end())
 
-const userRouter = require('./routes/users.js');
-const goalsRouter = require('./routes/goals.js')
-const habitsRouter = require('./routes/habits.js');
+const userRouter = require('../routes/users.js');
+const goalsRouter = require('../routes/goals.js')
+const habitsRouter = require('../routes/habits.js');
 
 //
 
