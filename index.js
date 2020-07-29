@@ -14,10 +14,10 @@ const sessions = require('express-session')
 //   .finally(() => client.end())
 
 const userRouter = require('./routes/users.js');
-// const GoalRouter = require('../routers/Goal-router.js')
-// const habitRouter = require('../routers/habit-router.js');
+const goalsRouter = require('./routes/goals.js')
+// const habitRouter = require('./routes/habi .js');
 
-// 
+//
 
 const server = express();
 
@@ -26,12 +26,10 @@ server.use(express.json());
 server.use(cors());
 
 server.use('/users', userRouter);
-// server.use('/goals', mdwr.restricted, GoalsRouter);
+server.use('/goals',/* mdwr.restricted,*/ goalsRouter);
 // server.use('/habits', mdwr.restricted, HabitsRouter);
 
-server.get('/', (req,res) => {
-  res.send({api: 'running like wind'})
-})
+server.get('/', (req,res) => { res.send({api: 'running like wind'}) })
 
 const PORT = process.env.PORT || 5000;
 
