@@ -11,7 +11,9 @@ module.exports = {
 }
 
 //all
-function getAll(data){ return db(data) }
+function getAll(data){
+  return db(data)
+}
 
 function findById(data, id){
   return db(data)
