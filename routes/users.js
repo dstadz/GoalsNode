@@ -29,9 +29,9 @@ router.post('/signUp', (req, res) => {
 
 router.post('/signIn', (req, res) => {
   console.log('signin')
-  const {name, password} = req.body;
+  const {email, password} = req.body;
 
-  model.findByname({ name })
+  model.findByname({ email })
     .first()
     .then(user => {
       console.log(user)
