@@ -28,20 +28,15 @@ router.post('/signUp', (req, res) => {
 })
 
 router.post('/signIn', (req, res) => {
-  console.log('signin')
   const {email, password} = req.body;
 
   model.findByname({ email })
     .first()
     .then(user => {
-      console.log(user)
-      console.log( bcrypt.compareSync(password, user.password))
       if (user && bcrypt.compareSync(password, user.password)) {
-        const token = signToken(user);
-        console.log(token)
-        // req.session.user = user;
-        console.log(req.session)
-        res.status(200).json(token);
+        // const token = signToken(user);
+        // res.status(200).json(token);
+        res.status(200).json(user)
       } else {res.status(401).json({ message: "Invalid Credentials" })}
     })
     .catch(err => {
