@@ -5,11 +5,18 @@ const jwt = require("jsonwebtoken");
 
 const router = express.Router()
 const model = require("../model.js");
-// const db = require('../data/db-config.js')
+const db = require('../data/db-config.js')
 
-
+//get all
 router.get('/', (req,res)=> {
   model.getAll('users')
+    .then(users => {res.status(200).json(users)})
+    .catch(err => {res.status(500).json(err)})
+})
+
+//get single by id
+router.get('/:id', (req,res)=> {
+  model.findById('users', req.params.id)
     .then(users => {res.status(200).json(users)})
     .catch(err => {res.status(500).json(err)})
 })
@@ -53,6 +60,40 @@ router.post("/logout", (req, res) => {
     });
   } else {res.status(200).end()}
 });
+
+
+
+router.put('/:id', (req, res) => {
+  const newInfo = req.body
+  const id = req.params.id
+
+  db('users')
+  .where('id', '=', id)
+  .update({
+    name: newInfo.name
+  })
+  .then(user => res.json(user))
+
+
+
+
+  // model.findById('users', id)
+  // .then(user => {
+  //   // console.log({...user, ...newInfo})
+  //   if(!user){ res.status(400).json({ msg: `No user with the id of ${id}` }); }
+  //   else {
+  //     model.update(id,{...newInfo})
+  //     res.json(user)
+  //   }
+  // })
+  .catch(err => console.log(err))
+});
+
+
+
+
+
+
 
 function signToken(user) {
   const payload = {name: user.name,};
