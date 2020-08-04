@@ -4,10 +4,9 @@ module.exports = {
   getAll,
   findBy,
   findById,
-  findByName,
-  findByRestId,
   findByname,
-  add
+  add,
+  update,
 }
 
 //all
@@ -42,15 +41,18 @@ function findByname(name){
   .first()
 }
 
-//restautants
-function findByName(name){
-  return db('restaurants')
-  .where({ name })
-  // .first()
+function update(id, user) {
+  // const keys = Object.keys(user)
+  // const values = Object.values(user)
+  // console.log( keys, values )
+  return db('users')
+    .where({ id })
+    // .update(keys[0], values[0]);
+    .update({ user });
 }
 
-///reviews
-function findByRestId(restaurant_id){
-  return db('reviews')
-  .where({ restaurant_id })
+function remove(id) {
+  return db('users')
+    .where({ })
+    .del();
 }
