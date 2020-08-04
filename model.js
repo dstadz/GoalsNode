@@ -6,7 +6,7 @@ module.exports = {
   findById,
   findByname,
   add,
-  update,
+  // update,
 }
 
 //all
@@ -41,18 +41,14 @@ function findByname(name){
   .first()
 }
 
-function update(id, user) {
-  // const keys = Object.keys(user)
-  // const values = Object.values(user)
-  // console.log( keys, values )
-  return db('users')
-    .where({ id })
-    // .update(keys[0], values[0]);
-    .update({ user });
-}
+// function update(id, user) {
+//   return db('users')
+//     .where({ id })
+//     .update({ user });
+// }
 
 function remove(id) {
   return db('users')
-    .where({ })
+    .where({ id })
     .del();
 }
