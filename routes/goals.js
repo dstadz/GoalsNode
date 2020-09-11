@@ -30,6 +30,8 @@ router.post('/add/:id', (req, res) => {
 
 // get all goals for specific user
 router.get('/all/:id',/* mdwr.restricted,*/ (req,res) => {
+  console.log(req.params.id)
+
   return db('goals')
   .where({ user_id: req.params.id })
   .then(goals => {res.json(goals)})
@@ -44,5 +46,17 @@ router.get('/:id',/* mdwr.restricted,*/ (req,res) => {
   .then(goals => {res.json(goals)})
   .catch(err => {res.status(500).json(err);});
 })
+
+//edit goal by id
+router.put('/:id', (req, res) => {
+  const newInfo = req.body
+  const id = req.params.id
+  db('goals').where('id', '=', id).update( newInfo )
+  .then(
+    db('goals').where({ id }).first()
+    .then(user => {res.status(200).json(user)})
+    .catch(err => {res.status(500).json(err)}))
+  .catch(err => console.log(err))
+});
 
 module.exports = router;

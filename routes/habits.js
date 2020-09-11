@@ -29,6 +29,7 @@ router.post('/add/:id', (req, res) => {
 
 // get all habits for specific goal
 router.get('/all/:id',/* mdwr.restricted,*/ (req,res) => {
+  console.log(req.params.id)
   return db('habits')
   .where({ goal_id: req.params.id })
   .then(habits => {res.json(habits)})
