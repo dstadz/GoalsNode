@@ -51,12 +51,23 @@ router.get('/:id',/* mdwr.restricted,*/ (req,res) => {
 router.put('/:id', (req, res) => {
   const newInfo = req.body
   const id = req.params.id
+  console.log(newInfo)
   db('goals').where('id', '=', id).update( newInfo )
   .then(
     db('goals').where({ id }).first()
-    .then(user => {res.status(200).json(user)})
+    .then(goal => {res.status(200).json(goal)})
     .catch(err => {res.status(500).json(err)}))
   .catch(err => console.log(err))
 });
+
+router.delete('/:id', (req,res) => {
+  const { id } = req.params
+  db('goals').where('id', '=', id).del()
+    .then(count => {
+      if(count) res.json({delete: count})
+      else res.status(404).json({message: 'could not find goal with given id'})
+    })
+    .catch(err => {res.status(500).json(err)})
+})
 
 module.exports = router;
