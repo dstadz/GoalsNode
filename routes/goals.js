@@ -55,11 +55,12 @@ router.put('/:id', (req, res) => {
   db('goals').where('id', '=', id).update( newInfo )
   .then(
     db('goals').where({ id }).first()
-    .then(goal => {res.status(200).json(goal)})
+    .then(goal => {res.status(200).json(newInfo)})
     .catch(err => {res.status(500).json(err)}))
   .catch(err => console.log(err))
 });
 
+// delete goal by id
 router.delete('/:id', (req,res) => {
   const { id } = req.params
   db('goals').where('id', '=', id).del()
